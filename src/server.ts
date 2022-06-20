@@ -32,7 +32,7 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/", async (req, res) => {
+  app.get("/filteredimage/", async (req, res) => {
     const authheader = req.headers.authorization;
     if (authheader === "gfdj37recjghd38trgjfgj3u4jdkhwu7w04hfdhjjd") {
       const urlParam = req.query.image_url;
