@@ -35,19 +35,19 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
   // Displays a simple message to the user
   app.get("/filteredimage/", async (req: Request, res: Response) => {
     const authheader: string = req.headers.authorization;
+    const urlParam: string = req.query.image_url;
     if (authheader === "gfdj37recjghd38trgjfgj3u4jdkhwu7w04hfdhjjd") {
-      const urlParam = req.query.image_url;
       const transformImage = await filterImageFromURL(urlParam);
       // res.send("try GET /filteredimage?image_url={{}}");
       res.status(200);
       res.sendFile(transformImage);
-      res.end();
     } else {
       res.setHeader("WWW-Authenticate", "Basic");
       res.status(401);
       res.send("You are not authenticated");
       res.end();
     }
+    deleteLocalFiles([urlParam]);
   });
 
   // Start the Server
