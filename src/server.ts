@@ -45,9 +45,9 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
       res.setHeader("WWW-Authenticate", "Basic");
       res.status(401);
       res.send("You are not authenticated");
-      res.end();
     }
     deleteLocalFiles([urlParam]);
+    res.end();
   });
 
   // Start the Server
