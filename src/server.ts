@@ -1,4 +1,5 @@
-import express from "express";
+import express, { Request, Response } from "express";
+
 import bodyParser from "body-parser";
 import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
@@ -32,14 +33,14 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/filteredimage/", async (req, res) => {
-    const authheader = req.headers.authorization;
+  app.get("/filteredimage/", async (req: Request, res: Response) => {
+    const authheader: string = req.headers.authorization;
     if (authheader === "gfdj37recjghd38trgjfgj3u4jdkhwu7w04hfdhjjd") {
       const urlParam = req.query.image_url;
-      const transformImage = filterImageFromURL(urlParam);
+      const transformImage = await filterImageFromURL(urlParam);
       // res.send("try GET /filteredimage?image_url={{}}");
       res.status(200);
-      res.send(transformImage);
+      res.sendFile(transformImage);
       res.end();
     } else {
       res.setHeader("WWW-Authenticate", "Basic");
